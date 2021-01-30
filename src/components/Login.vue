@@ -12,12 +12,13 @@
       <el-form label-width="0px" class="login_form">
         <!-- 用户名 -->
         <el-form-item>
-          <el-input></el-input>
+          <el-input  prefix-icon="iconfont icon-user"></el-input>
+          <!-- 注意：使用字体图标时基类iconfont不能省 -->
         </el-form-item>
 
         <!-- 密码 -->
         <el-form-item>
-          <el-input></el-input>
+          <el-input  prefix-icon="iconfont icon-3702mima"></el-input>
         </el-form-item>
 
         <!-- 按钮区域 -->
@@ -109,7 +110,7 @@ export default {
     // 我们为了让它左右有边距，可以给他加padding
     // 上下0，左右20
     padding: 0 20px;
-    // box-sizing: border-box;
+    box-sizing: border-box;
     // 不设置box-sizing的话表单会超出右边部分的
 }
 

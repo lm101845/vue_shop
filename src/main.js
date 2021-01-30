@@ -5,6 +5,9 @@ import './plugins/element.js'
 
 // 在入口文件中导入全局样式表
 import './assets/css/global.css'
+
+// 在入口文件中导入字体图标
+import './assets/fonts/iconfont.css'
 Vue.config.productionTip = false
 
 new Vue({
