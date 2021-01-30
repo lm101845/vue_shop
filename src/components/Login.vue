@@ -9,22 +9,36 @@
         <img src="../assets/logo.png" alt="" />
       </div>
       <!-- 登陆表单区域 -->
-      <el-form :model="loginForm" label-width="0px" class="login_form">
+      <el-form
+        :model="loginForm"
+        :rules="loginFormRules"
+        label-width="0px"
+        class="login_form"
+      >
         <!-- 用户名 -->
-        <el-form-item>
-          <el-input  v-model="loginForm.username" prefix-icon="iconfont icon-user"></el-input>
+        <el-form-item prop="username">
+          <el-input
+            v-model="loginForm.username"
+            prefix-icon="iconfont icon-user"
+          ></el-input>
           <!-- 注意：使用字体图标时基类iconfont不能省 -->
         </el-form-item>
 
         <!-- 密码 -->
-        <el-form-item>
-          <el-input  v-model="loginForm.password" prefix-icon="iconfont icon-3702mima" type="password"></el-input>
+        <el-form-item prop="password">
+            <!-- prop我还是不熟悉啊！！！ -->
+            <!-- 注意：验证规则是加给item的，不是加给文本框的 -->
+          <el-input
+            v-model="loginForm.password"
+            prefix-icon="iconfont icon-3702mima"
+            type="password"
+          ></el-input>
         </el-form-item>
 
         <!-- 按钮区域 -->
         <el-form-item class="btns">
-           <el-button type="primary">登陆</el-button>
-           <el-button type="info">重置</el-button>
+          <el-button type="primary">登陆</el-button>
+          <el-button type="info">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -35,17 +49,45 @@
 export default {
   //    name:'login'
   //    这个不写也行，老师就没写
-  data(){
-      return {
-        // 这个是登陆表单的数据绑定对象
-        // 用户名和密码应该绑定到这个对象的某个属性身上
-        // 所以我们再定义username和password这2个具体的属性
-          loginForm:{
-              username:'zs',
-              password:'123'
-          }
-      }
-  }
+  data() {
+    return {
+      // 这个是登陆表单的数据绑定对象
+      // 用户名和密码应该绑定到这个对象的某个属性身上
+      // 所以我们再定义username和password这2个具体的属性
+      loginForm: {
+        username: "zs",
+        password: "123",
+      },
+      //   这是表单的验证规则对象
+      loginFormRules: {
+        //   验证用户名是否合法
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          {
+            min: 3,
+            max: 10,
+            message: "长度在 3 到 10 个字符",
+            trigger: "blur",
+          },
+          //首先，用户名是必填项，所以required:true
+          // trigger表名触发时间，文本框失去焦点时进行触发
+          // 一个大括号里面就是一个验证规则
+          // 接下来我们如何让用户名的验证规则生效呢？
+          // 复制验证规则，找到上面的el-form-item，指定一个prop="username"
+        ],
+        //   验证密码是否合法
+        password: [
+          { required: true, message: "请输入登陆密码", trigger: "blur" },
+          {
+            min: 6,
+            max: 15,
+            message: "长度在 6 到 15 个字符",
+            trigger: "blur",
+          },
+        ],
+      },
+    };
+  },
 };
 </script>
 
@@ -112,21 +154,21 @@ export default {
   }
 }
 
-.login_form{
-    position: absolute;
-    bottom: 0;
-    // 这个时候我们发现文本框并没有占满整个区域
-    // 我们可以设置宽度为父盒子的100%即可
-    width: 100%;
-    // 我们为了让它左右有边距，可以给他加padding
-    // 上下0，左右20
-    padding: 0 20px;
-    box-sizing: border-box;
-    // 不设置box-sizing的话表单会超出右边部分的
+.login_form {
+  position: absolute;
+  bottom: 0;
+  // 这个时候我们发现文本框并没有占满整个区域
+  // 我们可以设置宽度为父盒子的100%即可
+  width: 100%;
+  // 我们为了让它左右有边距，可以给他加padding
+  // 上下0，左右20
+  padding: 0 20px;
+  box-sizing: border-box;
+  // 不设置box-sizing的话表单会超出右边部分的
 }
 
-.btns{
-    display: flex;
-    justify-content: flex-end;
+.btns {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
