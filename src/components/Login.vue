@@ -113,8 +113,10 @@ export default {
             const {data:res} = await this.$http.post('login',this.loginForm)
             // 解构赋值，这个对象中只要data属性，给它重命名为res
             // console.log(res);
-            if(res.meta.status !== 200) return console.log('登陆失败')
-            console.log('登陆成功');
+            // if(res.meta.status !== 200) return console.log('登陆失败')
+            if(res.meta.status !== 200) return this.$message.error('登陆失败')
+            // console.log('登陆成功');
+            this.$message.success('登陆成功')
         })
     }
   }
