@@ -1,0 +1,7 @@
+/* 全局样式表 */
+html,body,#app{
+    height: 100%;
+    /* 让HTML,body,里面的div撑满页面 */
+    margin: 0;
+    padding: 0;
+}
