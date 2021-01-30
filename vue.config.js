@@ -3,7 +3,7 @@ module.exports = {
     configureWebpack: {
         resolve: {
             // resolve用于配置和路径相关的
-            // extensions:[]
+            extensions:['.js','.vue','.json'],
             // 这个可以省略.vue,.js等配置文件，我们这里不用配置，公共配置文件就已经配置好了
             alias: {
                 // alias配置别名的

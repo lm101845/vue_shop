@@ -9,16 +9,16 @@
         <img src="../assets/logo.png" alt="" />
       </div>
       <!-- 登陆表单区域 -->
-      <el-form label-width="0px" class="login_form">
+      <el-form :model="loginForm" label-width="0px" class="login_form">
         <!-- 用户名 -->
         <el-form-item>
-          <el-input  prefix-icon="iconfont icon-user"></el-input>
+          <el-input  v-model="loginForm.username" prefix-icon="iconfont icon-user"></el-input>
           <!-- 注意：使用字体图标时基类iconfont不能省 -->
         </el-form-item>
 
         <!-- 密码 -->
         <el-form-item>
-          <el-input  prefix-icon="iconfont icon-3702mima"></el-input>
+          <el-input  v-model="loginForm.password" prefix-icon="iconfont icon-3702mima" type="password"></el-input>
         </el-form-item>
 
         <!-- 按钮区域 -->
@@ -35,6 +35,17 @@
 export default {
   //    name:'login'
   //    这个不写也行，老师就没写
+  data(){
+      return {
+        // 这个是登陆表单的数据绑定对象
+        // 用户名和密码应该绑定到这个对象的某个属性身上
+        // 所以我们再定义username和password这2个具体的属性
+          loginForm:{
+              username:'zs',
+              password:'123'
+          }
+      }
+  }
 };
 </script>
 
