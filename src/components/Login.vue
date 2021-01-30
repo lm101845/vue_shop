@@ -97,8 +97,24 @@ export default {
         this.$refs.loginFormRef.resetFields()
     },
     login(){
-        this.$refs.loginFormRef.validate((valid)=>{
-            console.log(valid);
+        this.$refs.loginFormRef.validate(async valid=>{
+            // console.log(valid);
+            if(!valid) return 
+            // 表示如果valid为false,我们就不发起请求了
+            // 要发起请求，肯定要使用对应的包：Axios
+            // console.log(this);
+            // console.log(this.$http);
+            // const result = await this.$http.post('login',this.loginForm)
+            // console.log(result);
+            // API中写了,login就是请求路径！！！！
+            // 这个地址需要一些参数，就是this.loginForm！！！！！！
+            // 用户在表单中填写的数据会自动同步到loginForm中。
+            // 所以参数就直接写loginForm就可以了
+            const {data:res} = await this.$http.post('login',this.loginForm)
+            // 解构赋值，这个对象中只要data属性，给它重命名为res
+            // console.log(res);
+            if(res.meta.status !== 200) return console.log('登陆失败')
+            console.log('登陆成功');
         })
     }
   }

@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// 首先导入登陆组件
+
 import Login from '../components/Login'
+// 首先导入登陆组件
+
 Vue.use(VueRouter)
 
 const routes = [
