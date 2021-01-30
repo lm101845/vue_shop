@@ -10,6 +10,7 @@
       </div>
       <!-- 登陆表单区域 -->
       <el-form
+        ref="loginFormRef"
         :model="loginForm"
         :rules="loginFormRules"
         label-width="0px"
@@ -38,7 +39,7 @@
         <!-- 按钮区域 -->
         <el-form-item class="btns">
           <el-button type="primary">登陆</el-button>
-          <el-button type="info">重置</el-button>
+          <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -88,6 +89,14 @@ export default {
       },
     };
   },
+  methods:{
+    //   点击重置按钮，重置登陆表单
+    resetLoginForm(){
+        // console.log(this);
+        // 这个this就指向当前登陆组件的实例对象
+        this.$refs.loginFormRef.resetFields()
+    }
+  }
 };
 </script>
 
