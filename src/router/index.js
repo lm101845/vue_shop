@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Login from '../components/Login'
 // 首先导入登陆组件
+import Home from '../components/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,10 @@ const routes = [
     path:'/login',
     // 我之前写的是path:'./login'，多加了一个点
     component: Login
+  },
+  {
+    path:'/home',
+    component:Home
   }
 ]
 

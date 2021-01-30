@@ -27,8 +27,8 @@
 
         <!-- 密码 -->
         <el-form-item prop="password">
-            <!-- prop我还是不熟悉啊！！！ -->
-            <!-- 注意：验证规则是加给item的，不是加给文本框的 -->
+          <!-- prop我还是不熟悉啊！！！ -->
+          <!-- 注意：验证规则是加给item的，不是加给文本框的 -->
           <el-input
             v-model="loginForm.password"
             prefix-icon="iconfont icon-3702mima"
@@ -56,8 +56,8 @@ export default {
       // 用户名和密码应该绑定到这个对象的某个属性身上
       // 所以我们再定义username和password这2个具体的属性
       loginForm: {
-        username: "zs",
-        password: "123",
+        username: "admin",
+        password: "123456",
       },
       //   这是表单的验证规则对象
       loginFormRules: {
@@ -89,37 +89,48 @@ export default {
       },
     };
   },
-  methods:{
+  methods: {
     //   点击重置按钮，重置登陆表单
-    resetLoginForm(){
-        // console.log(this);
-        // 这个this就指向当前登陆组件的实例对象
-        this.$refs.loginFormRef.resetFields()
+    resetLoginForm() {
+      // console.log(this);
+      // 这个this就指向当前登陆组件的实例对象
+      this.$refs.loginFormRef.resetFields();
     },
-    login(){
-        this.$refs.loginFormRef.validate(async valid=>{
-            // console.log(valid);
-            if(!valid) return 
-            // 表示如果valid为false,我们就不发起请求了
-            // 要发起请求，肯定要使用对应的包：Axios
-            // console.log(this);
-            // console.log(this.$http);
-            // const result = await this.$http.post('login',this.loginForm)
-            // console.log(result);
-            // API中写了,login就是请求路径！！！！
-            // 这个地址需要一些参数，就是this.loginForm！！！！！！
-            // 用户在表单中填写的数据会自动同步到loginForm中。
-            // 所以参数就直接写loginForm就可以了
-            const {data:res} = await this.$http.post('login',this.loginForm)
-            // 解构赋值，这个对象中只要data属性，给它重命名为res
-            // console.log(res);
-            // if(res.meta.status !== 200) return console.log('登陆失败')
-            if(res.meta.status !== 200) return this.$message.error('登陆失败')
-            // console.log('登陆成功');
-            this.$message.success('登陆成功')
-        })
-    }
-  }
+    login() {
+      this.$refs.loginFormRef.validate(async (valid) => {
+        // console.log(valid);
+        if (!valid) return;
+        // 表示如果valid为false,我们就不发起请求了
+        // 要发起请求，肯定要使用对应的包：Axios
+        // console.log(this);
+        // console.log(this.$http);
+        // const result = await this.$http.post('login',this.loginForm)
+        // console.log(result);
+        // API中写了,login就是请求路径！！！！
+        // 这个地址需要一些参数，就是this.loginForm！！！！！！
+        // 用户在表单中填写的数据会自动同步到loginForm中。
+        // 所以参数就直接写loginForm就可以了
+        const { data: res } = await this.$http.post("login", this.loginForm);
+        // 解构赋值，这个对象中只要data属性，给它重命名为res
+        // console.log(res);
+        // if(res.meta.status !== 200) return console.log('登陆失败')
+        if (res.meta.status !== 200) return this.$message.error("登陆失败");
+        // console.log('登陆成功');
+        this.$message.success("登陆成功");
+        // 1.将登录成功之后的token，保存到客户端的 sessionstorage中
+        //    1.1项目中除了登录之外的其他API接口，必须在登录之后才能访问
+        //    1.2token只应在当前网站打开期间生效，所以将 token 保存在sessionstorage中
+        // 注意：sessionstorage是会话期间的存储机制，而localstorage是持久期间的存储机制
+        // 所以将token保存在sessionstorage里面比较合适
+        console.log(res);
+        window.sessionStorage.setItem('token',res.data.token)
+        // 这样我们就把token保存到了sessionstorage中
+        // 2.通过编程式导航跳转到后台主页，路由地址是/home
+        this.$router.push('/home')
+        // 这种属于编程式导航，只不过现在home页面现在还没有提供
+      });
+    },
+  },
 };
 </script>
 
