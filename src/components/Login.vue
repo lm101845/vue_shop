@@ -122,7 +122,7 @@ export default {
         //    1.2token只应在当前网站打开期间生效，所以将 token 保存在sessionstorage中
         // 注意：sessionstorage是会话期间的存储机制，而localstorage是持久期间的存储机制
         // 所以将token保存在sessionstorage里面比较合适
-        console.log(res)
+        // console.log(res)
         window.sessionStorage.setItem('token', res.data.token)
         // 这样我们就把token保存到了sessionstorage中
         // 2.通过编程式导航跳转到后台主页，路由地址是/home
