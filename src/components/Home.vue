@@ -21,21 +21,24 @@
           active-text-color="#ffd04b"
         >
           <!-- 一级菜单 -->
-          <el-submenu index="1">
+          <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
+            <!-- index如果相同的话，你点击一个，所有的菜单都会展开，关闭，所有的菜单也会关闭的 -->
+            <!-- 每一个菜单都应该有一个独属于自己的index值 -->
+            <!-- 如果有id，建议key值绑定id-->
             <!-- 一级菜单的模版区域 -->
             <template slot="title">
               <!-- i是图标 -->
               <i class="el-icon-location"></i>
               <!-- span是文本 -->
-              <span>导航一</span>
+              <span>{{item.authName}}</span>
             </template>
 
-            <el-menu-item index="1-4-1">
+            <el-menu-item :index="subItem.id + ''" v-for="subItem in item.children" :key="subItem.id">
               <template slot="title">
                 <!-- i是图标 -->
                 <i class="el-icon-location"></i>
                 <!-- span是文本 -->
-                <span>导航一</span>
+                <span>{{subItem.authName}}</span>
               </template>
             </el-menu-item>
           </el-submenu>
