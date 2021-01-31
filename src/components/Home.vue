@@ -18,7 +18,8 @@
         <el-menu
           background-color="#333744"
           text-color="#fff"
-          active-text-color="#ffd04b"
+          active-text-color="#409eff"
+          
         >
           <!-- 一级菜单 -->
           <el-submenu :index="item.id + ''" v-for="item in menulist" :key="item.id">
@@ -28,7 +29,7 @@
             <!-- 一级菜单的模版区域 -->
             <template slot="title">
               <!-- i是图标 -->
-              <i class="el-icon-location"></i>
+              <i :class="iconsObj[item.id]"></i>
               <!-- span是文本 -->
               <span>{{item.authName}}</span>
             </template>
@@ -36,7 +37,7 @@
             <el-menu-item :index="subItem.id + ''" v-for="subItem in item.children" :key="subItem.id">
               <template slot="title">
                 <!-- i是图标 -->
-                <i class="el-icon-location"></i>
+                <i class="el-icon-menu"></i>
                 <!-- span是文本 -->
                 <span>{{subItem.authName}}</span>
               </template>
@@ -55,7 +56,17 @@ export default {
   data(){
     return {
       // 左侧菜单数据
-      menulist:[]
+      menulist:[],
+      iconsObj:{
+        // 对象是Key：value
+        // 每个菜单项都有一个唯一的id，可以作为key
+        // id对应的图标类名，可以当作value
+        '125':'iconfont icon-user',
+        '103':'iconfont icon-tijikongjian',
+        '101':'iconfont icon-shangpin',
+        '102':'iconfont icon-danju',
+        '145':'iconfont icon-baobiao'
+      }
     }
   },
   created(){
@@ -107,5 +118,9 @@ export default {
 
 .el-main {
   background-color: #eaedf1;
+}
+
+.iconfont{
+  margin-right: 10px;
 }
 </style>
