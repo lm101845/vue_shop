@@ -49,10 +49,27 @@
 
 <script>
 export default {
+  data(){
+    return {
+      // 左侧菜单数据
+      menulist:[]
+    }
+  },
+  created(){
+    this.getMenuList()
+    // 调用getMenuList来获取所有的左侧菜单。
+  },
   methods: {
     logout() {
       window.sessionStorage.clear()
       this.$router.push('/login')
+    },
+    // 获取所有的菜单
+    async getMenuList(){
+      const {data:res} = await this.$http.get('menus')
+      if(res.meta.status !== 200) return this.$message.error(res.meta.msg)
+      this.menulist = res.data
+      console.log(res);
     }
   }
 }
