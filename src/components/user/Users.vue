@@ -25,12 +25,22 @@
       </el-row>
 
       <!-- 用户列表区域 -->
-      <el-table :data='userList' border stripe="">
+      <el-table :data="userList" border stripe="">
+        <el-table-column type="index"></el-table-column>
         <el-table-column label="姓名" prop="username"></el-table-column>
         <el-table-column label="邮箱" prop="email"></el-table-column>
         <el-table-column label="电话" prop="mobile"></el-table-column>
         <el-table-column label="角色" prop="role_name"></el-table-column>
-        <el-table-column label="状态" prop="mg_state"></el-table-column>
+        <el-table-column label="状态">
+          <template slot-scope="scope">
+            <!-- 其中，这个scope身上有个属性叫做scope.row -->
+            <!-- {{scope.row}} -->
+            <el-switch
+              v-model="scope.row.mg_state"
+            >
+            </el-switch>
+          </template>
+        </el-table-column>
         <el-table-column label="操作"></el-table-column>
       </el-table>
     </el-card>
