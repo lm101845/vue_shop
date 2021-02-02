@@ -101,7 +101,7 @@
     </el-card>
 
     <!-- 添加用户的对话框 -->
-    <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="30%">
+    <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="30%" @close="addDialogClosed">
       <!-- 内容主体区域 -->
       <!-- <span>提示</span> -->
       <el-form
@@ -148,11 +148,11 @@ export default {
     // 自定义校验规则
     // 每个规则中都有三个参数
     // 验证邮箱的规则
-    var checkEmail = (rule,value,callback) => {
+    var checkEmail = (rule, value, callback) => {
       // 我们要通过正则来实现校验
       // 验证邮箱的正则表达式
       const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/
-      if(regEmail.test(value)){
+      if (regEmail.test(value)) {
         // 合法的邮箱
         return callback()
       }
@@ -160,11 +160,11 @@ export default {
       callback(new Error('请输入合法的邮箱'))
     }
     // 验证手机号的规则
-    var checkMobile = (rule,value,callback) => {
+    var checkMobile = (rule, value, callback) => {
       // 验证手机号的正则表达式
       const regMobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
 
-      if(regMobile.test(value)){
+      if (regMobile.test(value)) {
         // 合法的手机号
         return callback()
       }
@@ -213,12 +213,12 @@ export default {
         ],
         email: [
           { required: true, message: '请输入邮箱', trigger: 'blur' },
-          {validator:checkEmail,trigger:'blur'}
+          { validator: checkEmail, trigger: 'blur' }
         ],
         mobile: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
-          {validator:checkMobile,trigger:'blur'}
-          ]
+          { validator: checkMobile, trigger: 'blur' }
+        ]
       }
     }
   },
@@ -265,6 +265,10 @@ export default {
         return this.$message.error('更新用户状态失败!')
       }
       this.$message.success('更新用户状态成功')
+    },
+    // 监听添加用户对话框的关闭事件
+    addDialogClosed(){
+      this.$refs.addFormRef.resetFields()
     }
   }
 }
