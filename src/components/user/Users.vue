@@ -61,6 +61,7 @@
               type="primart"
               icon="el-icon-edit"
               size="mini"
+              @click="showEditDialog()"
             ></el-button>
 
             <!-- 删除按钮 -->
@@ -101,7 +102,12 @@
     </el-card>
 
     <!-- 添加用户的对话框 -->
-    <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="30%" @close="addDialogClosed">
+    <el-dialog
+      title="添加用户"
+      :visible.sync="addDialogVisible"
+      width="30%"
+      @close="addDialogClosed"
+    >
       <!-- 内容主体区域 -->
       <!-- <span>提示</span> -->
       <el-form
@@ -133,7 +139,20 @@
       <!-- 底部按钮区域 -->
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addUser"
+        <el-button type="primary" @click="addUser">确 定</el-button>
+      </span>
+    </el-dialog>
+
+    <!-- 修改用户的对话框 -->
+    <el-dialog
+      title="修改用户"
+      :visible.sync="editDialogVisible"
+      width="50%"
+    >
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editDialogVisible = false"
           >确 定</el-button
         >
       </span>
@@ -219,7 +238,9 @@ export default {
           { required: true, message: '请输入手机号', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }
         ]
-      }
+      },
+      // 控制修改用户对话框的显示与隐藏
+      editDialogVisible:false
     }
   },
   created() {
@@ -267,18 +288,18 @@ export default {
       this.$message.success('更新用户状态成功')
     },
     // 监听添加用户对话框的关闭事件
-    addDialogClosed(){
+    addDialogClosed() {
       this.$refs.addFormRef.resetFields()
     },
     // 点击按钮添加新用户
-    addUser(){
-      this.$refs.addFormRef.validate( async valid=>{
+    addUser() {
+      this.$refs.addFormRef.validate(async valid => {
         // console.log(valid);
-        if(!valid) return 
+        if (!valid) return
         // 可以发起添加用户的网络请求
-        const {data:res} = await this.$http.post('users',this.addForm)
+        const { data: res } = await this.$http.post('users', this.addForm)
         // 用户的信息我们可以直接以对象的形式给它传过去
-        if(res.meta.status !== 201){
+        if (res.meta.status !== 201) {
           this.$message.error('添加用户失败!')
         }
 
@@ -287,9 +308,13 @@ export default {
         // 添加用户成功之后我们应该隐藏添加用户的对话框
         this.addDialogVisible = false
 
-        // 刷新用户列表：重新调用getUserList
+        // 刷新用户列表,重新调用getUserList
         this.getUserList()
       })
+    },
+    // 展示编辑用户的对话框
+    showEditDialog() {
+      this.editDialogVisible = true
     }
   }
 }
