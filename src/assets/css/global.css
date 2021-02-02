@@ -5,3 +5,14 @@ html,body,#app{
     margin: 0;
     padding: 0;
 }
+
+.el-breadcrumb{
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+.el-card{
+    box-shadow: 0 1px rgba(0,0,0,0.15) !important;
+    /* 重置一下element默认的样式 */
+    /* 它原来的权重比较高，加上!important才行 */
+}
