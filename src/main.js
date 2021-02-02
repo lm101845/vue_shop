@@ -20,7 +20,7 @@ axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 axios.interceptors.request.use(config=>{
   // 这个config就是请求对象
   // 在这个请求对象身上会包含N多的属性
-  console.log(config);
+  // console.log(config);
   config.headers.Authorization = window.sessionStorage.getItem('token')
   // 最后必须要return这个config，这个是固定写法
   return config

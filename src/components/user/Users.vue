@@ -35,7 +35,7 @@
           <template slot-scope="scope">
             <!-- 其中，这个scope身上有个属性叫做scope.row -->
             <!-- {{scope.row}} -->
-            <el-switch v-model="scope.row.mg_state"> </el-switch>
+            <el-switch v-model="scope.row.mg_state" @change="userStateChange(scope.row)"> </el-switch>
           </template>
         </el-table-column>
 
@@ -121,7 +121,7 @@ export default {
       }
       this.userList = res.data.users
       this.total = res.data.total
-      console.log(res)
+      // console.log(res)
     },
     // 监听pageSize改变的事件
     handleSizeChange(newSize) {
@@ -135,6 +135,17 @@ export default {
       // console.log(newPage)
       this.queryInfo.pagenum = newPage
       this.getUserList()
+    },
+    // 监听switch开关状态的改变
+    async userStateChange(userinfo){
+      console.log(userinfo);
+      // this.$http.put(`users/:uId/state/:type`,)
+      const {data:res} = await this.$http.put(`users/${userinfo.id}/state/${userinfo.mg_state}`,)
+      if(res.meta.status !== 200){
+        userinfo.mg_state = !userinfo.mg_state
+        return this.$message.error('更新用户状态失败!')
+      }
+      this.$message.success('更新用户状态成功')
     }
   }
 }
