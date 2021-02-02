@@ -115,17 +115,17 @@
           <el-input v-model="addForm.username"></el-input>
         </el-form-item>
 
-         <el-form-item label="密码" prop="password">
+        <el-form-item label="密码" prop="password">
           <!-- prop是验证规则的属性 -->
           <el-input v-model="addForm.password"></el-input>
         </el-form-item>
 
-         <el-form-item label="邮箱" prop="email">
+        <el-form-item label="邮箱" prop="email">
           <!-- prop是验证规则的属性 -->
           <el-input v-model="addForm.email"></el-input>
         </el-form-item>
 
-         <el-form-item label="手机" prop="mobile">
+        <el-form-item label="手机" prop="mobile">
           <!-- prop是验证规则的属性 -->
           <el-input v-model="addForm.mobile"></el-input>
         </el-form-item>
@@ -145,6 +145,31 @@
 export default {
   // 在发起请求之前我们先定义一些基本的代码结构
   data() {
+    // 自定义校验规则
+    // 每个规则中都有三个参数
+    // 验证邮箱的规则
+    var checkEmail = (rule,value,callback) => {
+      // 我们要通过正则来实现校验
+      // 验证邮箱的正则表达式
+      const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/
+      if(regEmail.test(value)){
+        // 合法的邮箱
+        return callback()
+      }
+
+      callback(new Error('请输入合法的邮箱'))
+    }
+    // 验证手机号的规则
+    var checkMobile = (rule,value,callback) => {
+      // 验证手机号的正则表达式
+      const regMobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
+
+      if(regMobile.test(value)){
+        // 合法的手机号
+        return callback()
+      }
+      callback(new Error('请输入合法的手机号'))
+    }
     return {
       // 我们最好把get参数定义到这里，不要直接在params里写
       // 获取用户列表的参数对象
@@ -160,28 +185,40 @@ export default {
       // 控制添加用户对话框的显示与隐藏
       addDialogVisible: false,
       // 添加用户的表单数据
-      addForm:{
-        username:'',
-        password:'',
-        email:'',
-        mobile:''
+      addForm: {
+        username: '',
+        password: '',
+        email: '',
+        mobile: ''
       },
       // 添加表单的验证规则对象
-      addFormRules:{
-        username:[
-          {required:true,message:'请输入用户名',trigger:'blur'},
-          {min:3,max:10,message:'用户名的长度在3~10个字符之间',trigger:'blur'}
+      addFormRules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          {
+            min: 3,
+            max: 10,
+            message: '用户名的长度在3~10个字符之间',
+            trigger: 'blur'
+          }
         ],
-        password:[
-          {required:true,message:'请输入密码',trigger:'blur'},
-          {min:6,max:15,message:'用户名的长度在6~15个字符之间',trigger:'blur'}
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          {
+            min: 6,
+            max: 15,
+            message: '用户名的长度在6~15个字符之间',
+            trigger: 'blur'
+          }
         ],
-        email:[
-           {required:true,message:'请输入邮箱',trigger:'blur'},
+        email: [
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
+          {validator:checkEmail,trigger:'blur'}
         ],
-        mobile:[
-           {required:true,message:'请输入手机号',trigger:'blur'},
-        ]
+        mobile: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          {validator:checkMobile,trigger:'blur'}
+          ]
       }
     }
   },
