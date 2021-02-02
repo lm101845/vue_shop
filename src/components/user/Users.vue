@@ -272,10 +272,23 @@ export default {
     },
     // 点击按钮添加新用户
     addUser(){
-      this.$refs.addFormRef.validate(valid=>{
+      this.$refs.addFormRef.validate( async valid=>{
         // console.log(valid);
         if(!valid) return 
         // 可以发起添加用户的网络请求
+        const {data:res} = await this.$http.post('users',this.addForm)
+        // 用户的信息我们可以直接以对象的形式给它传过去
+        if(res.meta.status !== 201){
+          this.$message.error('添加用户失败!')
+        }
+
+        this.$message.success('添加用户成功')
+
+        // 添加用户成功之后我们应该隐藏添加用户的对话框
+        this.addDialogVisible = false
+
+        // 刷新用户列表：重新调用getUserList
+        this.getUserList()
       })
     }
   }
