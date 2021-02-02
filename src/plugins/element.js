@@ -28,7 +28,8 @@ import {
   Switch,
   Tooltip,
   Pagination,
-  Dialog
+  Dialog,
+  MessageBox
 } from 'element-ui'
 
 Vue.use(Button)
@@ -53,6 +54,9 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+
+// MessageBox比较特殊，不需要使用Vue.use函数
 Vue.prototype.$message = Message
 // message和button.form，input这些都不一样，它需要进行全局挂载
 // 这个代表把弹框组件挂载到了Vue的原型对象上
+Vue.prototype.$confirm = MessageBox.confirm
