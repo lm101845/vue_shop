@@ -26,7 +26,8 @@ import {
   Table,
   TableColumn,
   Switch,
-  Tooltip
+  Tooltip,
+  Pagination
 } from 'element-ui'
 
 Vue.use(Button)
@@ -49,6 +50,7 @@ Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Switch)
 Vue.use(Tooltip)
+Vue.use(Pagination)
 Vue.prototype.$message = Message
 // message和button.form，input这些都不一样，它需要进行全局挂载
 // 这个代表把弹框组件挂载到了Vue的原型对象上
