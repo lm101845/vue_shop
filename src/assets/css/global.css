@@ -16,3 +16,8 @@ html,body,#app{
     /* 重置一下element默认的样式 */
     /* 它原来的权重比较高，加上!important才行 */
 }
+
+.el-table{
+    margin-top: 15px;
+    font-size: 12px;
+}

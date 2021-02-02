@@ -22,7 +22,9 @@ import {
   BreadcrumbItem,
   Card,
   Row,
-  Col
+  Col,
+  Table,
+  TableColumn
 } from 'element-ui'
 
 Vue.use(Button)
@@ -41,6 +43,8 @@ Vue.use(BreadcrumbItem)
 Vue.use(Card)
 Vue.use(Row)
 Vue.use(Col)
+Vue.use(Table)
+Vue.use(TableColumn)
 Vue.prototype.$message = Message
 // message和button.form，input这些都不一样，它需要进行全局挂载
 // 这个代表把弹框组件挂载到了Vue的原型对象上
