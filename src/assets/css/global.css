@@ -4,6 +4,7 @@ html,body,#app{
     /* 让HTML,body,里面的div撑满页面 */
     margin: 0;
     padding: 0;
+    min-width: 1366px;
 }
 
 .el-breadcrumb{
