@@ -45,6 +45,9 @@ import {
   Upload
 } from 'element-ui'
 
+import Timeline from './timeline/index.js'
+import TimelineItem from './timeline-item/index.js'
+
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(FormItem)
@@ -80,6 +83,9 @@ Vue.use(Step)
 Vue.use(Checkbox)
 Vue.use(CheckboxGroup)
 Vue.use(Upload)
+
+Vue.use(Timeline)
+Vue.use(TimelineItem)
 
 // MessageBox比较特殊，不需要使用Vue.use函数
 Vue.prototype.$message = Message

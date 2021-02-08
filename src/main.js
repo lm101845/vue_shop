@@ -24,8 +24,9 @@ import axios from 'axios'
 // 为axios设置一下请求的根路径
 // 我觉得最好不要在这里写，在这里写就有点乱了，最好封装一下
 // 配置请求的根路径
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+// axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 // axios.defaults.baseURL = 'http://www.ysqorz.top:8888/api/private/v1/'
+axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1'
 
 // 给axios设置拦截器
 axios.interceptors.request.use(config=>{
